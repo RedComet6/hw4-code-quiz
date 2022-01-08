@@ -1,6 +1,7 @@
-const startBtn = document.getElementById("start");
-const questDiv = document.getElementById("question");
-const ansDiv = document.getElementById("answers");
+const startBtn = document.querySelector("#start");
+const timerDiv = document.querySelector("#timer");
+const questDiv = document.querySelector("#question");
+const ansDiv = document.querySelector("#answers");
 const questions = [
     {
         title: "I am a big fan of horror movies, do you happen to know my favorite horror film?",
@@ -23,14 +24,18 @@ const questions = [
         correct: "6",
     },
     {
-        title: "Do you feel like you know me better now?",
-        answers: ["Yee!", "Nah..."],
-        correct: "Yee!",
+        title: "Do you know which item I have a collection of?",
+        answers: ["Coffee Mugs", "Coasters", "Plants", "Vinyl LPs"],
+        correct: "Coffee Mugs",
     },
 ];
+let timerCount = 20;
+let gameOver = false;
+let correctChoices = 0;
 
 // functions
 function gameStart() {
+    timerStart();
     questionInit(0);
 }
 
@@ -65,20 +70,45 @@ function ansClick() {
     let questionNum = parseInt(this.getAttribute("data-attr"));
 
     if (questions[questionNum].correct === chosen) {
-        console.log("made it");
+        alert("You got it right!");
+        correctChoices++;
+    } else {
+        alert("You got it wrong.");
+        // subtract from timer
     }
     console.log(chosen);
     console.log(questionNum);
-    console.log(questions[questionNum].correct);
     if (questionNum + 1 < questions.length) {
         questionInit(questionNum + 1);
+    } else {
+        gameOver = true;
+        endGame();
     }
 }
 // function to end game
+function endGame() {
+    alert("End of game!");
+    console.log(timerCount);
+    console.log(correctChoices);
+}
 
 // function to save high score
 
 // function for timer
+function timerStart() {
+    timer = setInterval(function () {
+        timerCount--;
+        timerDiv.textContent = timerCount;
+        // if (timerCount > 0) {
+        //     if (gameOver === true && timerCount > 0) {
+        //         clearInterval(timer);
+        //     }
+        // }
 
-//  init
+        if (timerCount === 0 || gameOver === true) {
+            clearInterval(timer);
+        }
+    }, 1000);
+}
+//  page init
 startBtn.addEventListener("click", gameStart);
