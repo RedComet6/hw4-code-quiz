@@ -98,9 +98,15 @@ function endGame() {
 function handleUserScore() {
     let userScore = timerCount * (5 * (correctChoices + 5));
     let userIdent = "";
+    let userResult = {};
 
     if (highScores.length < highScoreMaxIndex + 1) {
         userIdent = prompt("You got a High Score! Enter Your Initals");
+        userResult = {
+            score: userScore,
+            identity: userIdent,
+        };
+        highScores.push(userResult);
     } else if (userScore > highScores[highScoreMaxIndex]) {
         userIdent = prompt("You got a High Score! Enter Your Initals");
         let userResult = {
@@ -113,6 +119,7 @@ function handleUserScore() {
 
     console.log(userScore);
     console.log(userIdent);
+    console.log(userResult);
     console.log(highScores);
 }
 
