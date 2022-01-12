@@ -29,14 +29,18 @@ const questions = [
         correct: "Coffee Mugs",
     },
 ];
-let timerCount = 20;
+const questionIndexInit = 0;
+const highScoreMaxIndex = 2;
+let highScores = [];
+let timerCount = 60;
 let gameOver = false;
 let correctChoices = 0;
 
 // functions
 function gameStart() {
+    localStorage.setItem("highScoreList", JSON.stringify(highScores));
     timerStart();
-    questionInit(0);
+    questionInit(questionIndexInit);
 }
 
 function questionInit(questionNum) {
@@ -75,9 +79,8 @@ function ansClick() {
     } else {
         alert("You got it wrong.");
         // subtract from timer
+        timerCount = timerCount - 3;
     }
-    console.log(chosen);
-    console.log(questionNum);
     if (questionNum + 1 < questions.length) {
         questionInit(questionNum + 1);
     } else {
@@ -87,23 +90,50 @@ function ansClick() {
 }
 // function to end game
 function endGame() {
-    alert("End of game!");
-    console.log(timerCount);
-    console.log(correctChoices);
+    handleUserScore();
+    checkPlayAgain();
 }
 
 // function to save high score
+function handleUserScore() {
+    let userScore = timerCount * (5 * (correctChoices + 5));
+    let userIdent = "";
+
+    if (highScores.length < highScoreMaxIndex + 1) {
+        userIdent = prompt("You got a High Score! Enter Your Initals");
+    } else if (userScore > highScores[highScoreMaxIndex]) {
+        userIdent = prompt("You got a High Score! Enter Your Initals");
+        let userResult = {
+            score: userScore,
+            identity: userIdent,
+        };
+        highScores.push(userResult);
+        // highScores.sort((first, second) => first.score - second.score);
+    }
+
+    console.log(userScore);
+    console.log(userIdent);
+    console.log(highScores);
+}
+
+function checkPlayAgain() {
+    let playAgain = confirm("Would you like to play again?");
+
+    if (playAgain === true) {
+        timerCount = 60;
+        gameOver = false;
+        correctChoices = 0;
+        gameStart();
+    } else {
+        gameOver === true;
+    }
+}
 
 // function for timer
 function timerStart() {
     timer = setInterval(function () {
         timerCount--;
         timerDiv.textContent = timerCount;
-        // if (timerCount > 0) {
-        //     if (gameOver === true && timerCount > 0) {
-        //         clearInterval(timer);
-        //     }
-        // }
 
         if (timerCount === 0 || gameOver === true) {
             clearInterval(timer);
