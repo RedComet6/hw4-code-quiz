@@ -137,9 +137,6 @@ function checkPlayAgain() {
     let playAgain = confirm("Would you like to play again?");
 
     if (playAgain === true) {
-        // timerCount = 60;
-        // gameOver === false;
-        // correctChoices = 0;
         location.reload();
     } else {
         startBtn.remove();
