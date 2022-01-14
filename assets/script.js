@@ -2,6 +2,7 @@ const startBtn = document.querySelector("#start");
 const timerDiv = document.querySelector("#timer");
 const questDiv = document.querySelector("#question");
 const ansDiv = document.querySelector("#answers");
+const highScoreDiv = document.querySelector("#highScores");
 const questions = [
     {
         title: "I am a big fan of horror movies, do you happen to know my favorite horror film?",
@@ -38,7 +39,7 @@ let correctChoices = 0;
 
 // functions
 function gameStart() {
-    localStorage.setItem("highScoreList", JSON.stringify(highScores));
+    // localStorage.setItem("highScoreList", JSON.stringify(highScores));
     timerStart();
     questionInit(questionIndexInit);
 }
@@ -81,71 +82,84 @@ function ansClick() {
         // subtract from timer
         timerCount = timerCount - 3;
     }
+
     if (questionNum + 1 < questions.length) {
         questionInit(questionNum + 1);
     } else {
-        gameOver = true;
-        endGame();
+        gameOver === true;
+        handleUserScore();
+        checkPlayAgain();
     }
-}
-// function to end game
-function endGame() {
-    handleUserScore();
-    checkPlayAgain();
 }
 
 // function to save high score
 function handleUserScore() {
-    let userScore = timerCount * (5 * (correctChoices + 5));
+    // scoresArray = JSON.parse(localStorage.getItem("highScores"));
+    // let userScore = timerCount * (5 * (correctChoices + 5));
+    let userScore = correctChoices;
     let userIdent = "";
     let userResult = {};
 
-    if (highScores.length < highScoreMaxIndex + 1) {
+    if (highScores.length < highScoreMaxIndex + 1 || userScore > highScores[highScoreMaxIndex]) {
         userIdent = prompt("You got a High Score! Enter Your Initals");
         userResult = {
             score: userScore,
             identity: userIdent,
         };
+
         highScores.push(userResult);
-    } else if (userScore > highScores[highScoreMaxIndex]) {
-        userIdent = prompt("You got a High Score! Enter Your Initals");
-        let userResult = {
-            score: userScore,
-            identity: userIdent,
-        };
-        highScores.push(userResult);
-        // highScores.sort((first, second) => first.score - second.score);
+
+        console.log(highScores);
+
+        highScores.sort(function (a, b) {
+            let scoreA = a.score;
+            let scoreB = b.score;
+
+            if (scoreA < scoreB) {
+                return 1;
+            } else if (scoreA > scoreB) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
     }
 
-    console.log(userScore);
-    console.log(userIdent);
-    console.log(userResult);
+    if (highScores.length > highScoreMaxIndex + 1) {
+        highScores.pop();
+    }
+
     console.log(highScores);
+    localStorage.setItem("highScoreList", JSON.stringify(highScores));
 }
 
 function checkPlayAgain() {
     let playAgain = confirm("Would you like to play again?");
 
     if (playAgain === true) {
-        timerCount = 60;
-        gameOver = false;
-        correctChoices = 0;
-        gameStart();
+        // timerCount = 60;
+        // gameOver === false;
+        // correctChoices = 0;
+        location.reload();
     } else {
-        gameOver === true;
+        startBtn.remove();
+        timerDiv.remove();
+        questDiv.remove();
+        ansDiv.remove();
     }
 }
 
 // function for timer
 function timerStart() {
-    timer = setInterval(function () {
-        timerCount--;
-        timerDiv.textContent = timerCount;
-
-        if (timerCount === 0 || gameOver === true) {
+    let timer = setInterval(function () {
+        if (timerCount <= 0 || gameOver === true) {
             clearInterval(timer);
         }
+
+        timerCount--;
+        timerDiv.textContent = timerCount;
     }, 1000);
 }
+
 //  page init
 startBtn.addEventListener("click", gameStart);
