@@ -1,3 +1,4 @@
+const quizTitle = document.querySelector("#quizTitle");
 const startBtn = document.querySelector("#start");
 const timerDiv = document.querySelector("#timer");
 const questDiv = document.querySelector("#question");
@@ -32,20 +33,18 @@ const questions = [
 ];
 const questionIndexInit = 0;
 const highScoreMaxIndex = 2;
-let highScores = [];
+let highScores = JSON.parse(localStorage.getItem("highScoreList"));
 let timerCount = 60;
 let gameOver = false;
 let correctChoices = 0;
 
 // functions
 function gameStart() {
-    // localStorage.setItem("highScoreList", JSON.stringify(highScores));
     timerStart();
     questionInit(questionIndexInit);
 }
 
 function questionInit(questionNum) {
-    // let correct = questions[questionNum].correct;
     let removePrev = document.querySelectorAll(".answerOption");
 
     if (removePrev.length > 0) {
@@ -84,7 +83,8 @@ function ansClick() {
     }
 
     if (questionNum + 1 < questions.length) {
-        questionInit(questionNum + 1);
+        questionNum++;
+        questionInit(questionNum);
     } else {
         gameOver === true;
         handleUserScore();
@@ -94,13 +94,11 @@ function ansClick() {
 
 // function to save high score
 function handleUserScore() {
-    // scoresArray = JSON.parse(localStorage.getItem("highScores"));
-    // let userScore = timerCount * (5 * (correctChoices + 5));
-    let userScore = correctChoices;
+    let userScore = timerCount * correctChoices;
     let userIdent = "";
     let userResult = {};
 
-    if (highScores.length < highScoreMaxIndex + 1 || userScore > highScores[highScoreMaxIndex]) {
+    if (highScores.length < highScoreMaxIndex + 1 || userScore > highScores[highScoreMaxIndex].score) {
         userIdent = prompt("You got a High Score! Enter Your Initals");
         userResult = {
             score: userScore,
@@ -143,13 +141,30 @@ function checkPlayAgain() {
         timerDiv.remove();
         questDiv.remove();
         ansDiv.remove();
+        quizTitle.textContent = "HIGH SCORES";
+
+        let scoreTable = document.createElement("table");
+        highScoreDiv.appendChild(scoreTable);
+
+        highScores.forEach((obj) => {
+            let scoreRow = document.createElement("tr");
+            let scoreValue = document.createElement("td");
+            let scoreIdentity = document.createElement("td");
+
+            scoreValue.textContent = obj.score;
+            scoreIdentity.textContent = obj.identity;
+
+            scoreTable.appendChild(scoreRow);
+            scoreRow.appendChild(scoreValue);
+            scoreRow.appendChild(scoreIdentity);
+        });
     }
 }
 
 // function for timer
 function timerStart() {
     let timer = setInterval(function () {
-        if (timerCount <= 0 || gameOver === true) {
+        if (timerCount <= 1 || gameOver === true) {
             clearInterval(timer);
         }
 
