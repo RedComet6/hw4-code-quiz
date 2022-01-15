@@ -15,4 +15,4 @@ A quiz where the user clicks a button to start the quiz. When the user start the
 ## Links to Application
 
 -   Here is the repo: [RedComet6/hw4](https://github.com/RedComet6/hw4-code-quiz)
--   Here is the pages: [RedComet6 hw4 Pages](https://redcomet6.github.io/hw3-password-generator/)
+-   Here is the pages: [RedComet6 hw4 Pages](https://redcomet6.github.io/hw4-code-quiz/)
