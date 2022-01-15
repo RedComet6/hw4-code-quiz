@@ -6,14 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
+    <!-- page title, tells user if they are in the quiz or in the high score board -->
     <h1 id="quizTitle">Code Quiz - Aidan Chamberlain</h1>
+    <!-- button to begin the quiz -->
     <button id="start">Start the Quiz</button>
+    <!-- div for displaying the remaing time -->
     <div id="timer"></div>
+    <!-- div for displaying each question -->
     <h2 id="question"></h2>
+    <!-- div for displaying each possible answer -->
     <div id="answers"></div>
+    <!-- div for showing the high score board -->
     <div id="highScores"></div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js"
