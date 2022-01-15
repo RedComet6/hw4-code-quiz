@@ -7,6 +7,9 @@ A quiz where the user clicks a button to start the quiz. When the user start the
 ## Screenshot
 
 ![A screenshot of the website initially](./assets/hw4-quiz_initial_screenshot.png)
+
+## Screenshot
+
 ![A screenshot of the website when quiz is over](./assets/hw4-quiz_ending_screenshot.png)
 
 ## Links to Application
