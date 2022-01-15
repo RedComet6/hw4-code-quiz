@@ -98,7 +98,7 @@ function ansClick() {
     if (questionNum + 1 < questions.length) {
         questionNum++;
         questionInit(questionNum);
-    } else {
+    } else if (questionNum + 1 === questions.length) {
         // if no questions remain, game is over and related endgame functions called
         gameOver === true;
         handleUserScore();
