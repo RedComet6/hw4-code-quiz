@@ -38,7 +38,7 @@ const questionIndexInit = 0;
 // the maximum number of users who can be stored on the high score list
 const highScoreMaxIndex = 2;
 // pulls the high scores out of the local storage, parsed for use as an array of objects
-let highScores = JSON.parse(localStorage.getItem("highScoreList"));
+let highScores = JSON.parse(localStorage.getItem("highScoreList")) || [];
 // inital scoring values
 let timerCount = 60;
 let gameOver = false;
@@ -200,7 +200,6 @@ function timerStart() {
         timerDiv.textContent = `Time Remaining: ${timerCount}`;
     }, 1000);
 }
-
 
 //  page initial setup
 startBtn.addEventListener("click", gameStart);
