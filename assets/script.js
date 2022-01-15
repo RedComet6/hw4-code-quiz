@@ -70,7 +70,7 @@ function questionInit(questionNum) {
         // displays text for each answer in button, applies attributes, appends to answer <div>, adds click event listener
         ansBtn.textContent = answer;
         ansBtn.setAttribute("value", answer);
-        ansBtn.setAttribute("class", "answerOption");
+        ansBtn.setAttribute("class", "answerOption btn btn-secondary p-3 m-3");
         ansBtn.setAttribute("data-attr", questionNum);
         ansDiv.appendChild(ansBtn);
         ansBtn.onclick = ansClick;
@@ -164,8 +164,9 @@ function checkPlayAgain() {
         ansDiv.remove();
         quizTitle.textContent = "HIGH SCORES";
 
-        // creates a table element, assigns to variable, appends to high score <div>
+        // creates a table element, assigns to variable, assigns attributes, appends to high score <div>
         let scoreTable = document.createElement("table");
+        scoreTable.setAttribute("class", "border col-3 table");
         highScoreDiv.appendChild(scoreTable);
 
         // for each high score, add a row to the board that has an element for the score and an element for the identity
@@ -174,8 +175,11 @@ function checkPlayAgain() {
             let scoreValue = document.createElement("td");
             let scoreIdentity = document.createElement("td");
 
+            // sets content of table cells and applies attributes
             scoreValue.textContent = obj.score;
             scoreIdentity.textContent = obj.identity;
+            scoreValue.setAttribute("class", "text-center");
+            scoreIdentity.setAttribute("class", "text-center");
 
             // appends to the table in the high score <div>
             scoreTable.appendChild(scoreRow);
@@ -193,7 +197,7 @@ function timerStart() {
         }
 
         timerCount--;
-        timerDiv.textContent = timerCount;
+        timerDiv.textContent = `Time Remaining: ${timerCount}`;
     }, 1000);
 }
 

@@ -12,18 +12,29 @@
 </head>
 
 <body>
-    <!-- page title, tells user if they are in the quiz or in the high score board -->
-    <h1 id="quizTitle">Code Quiz - Aidan Chamberlain</h1>
-    <!-- button to begin the quiz -->
-    <button id="start">Start the Quiz</button>
-    <!-- div for displaying the remaing time -->
-    <div id="timer"></div>
-    <!-- div for displaying each question -->
-    <h2 id="question"></h2>
-    <!-- div for displaying each possible answer -->
-    <div id="answers"></div>
-    <!-- div for showing the high score board -->
-    <div id="highScores"></div>
+    <main class="container-fluid m-5">
+        <!-- container for page heading information -->
+        <div class="d-block text-center">
+            <!-- page title, tells user if they are in the quiz or in the high score board -->
+            <h1 class="m-3" id="quizTitle">HW5 Quiz - Aidan Chamberlain</h1>
+            <!-- container to keep the start button and timer together -->
+            <div>
+                <!-- button to begin the quiz -->
+                <button class="btn btn-primary" id="start">Start the Quiz</button>
+                <!-- div for displaying the remaing time, set to inline so that the timer doesnt move things down the page when it generates-->
+                <div class="d-inline" id="timer"></div>
+            </div>
+        </div>
+        <!-- container for question unit -->
+        <div class="text-center">
+            <!-- div for displaying each question -->
+            <h2 class="m-3" id="question"></h2>
+            <!-- div for displaying each possible answer -->
+            <div id="answers"></div>
+        </div>
+        <!-- div for showing the high score board -->
+        <div class="d-flex justify-content-center row" id="highScores"></div>
+    </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
