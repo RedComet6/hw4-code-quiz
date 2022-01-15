@@ -201,5 +201,6 @@ function timerStart() {
     }, 1000);
 }
 
+
 //  page initial setup
 startBtn.addEventListener("click", gameStart);
